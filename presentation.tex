@@ -1,0 +1,290 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{caption}
+
+% Removes the navigation symbols at the bottom right
+\setbeamertemplate{navigation symbols}{}
+
+% Title Slide Customization
+\title[Smart Street Light System]{IOT-BASED SMART STREET LIGHT SYSTEM\\ WITH CLOUD INTEGRATION}
+\author[Your Name]{}
+\institute[]{
+    \vspace{0.5cm}
+    \begin{columns}[t]
+        \column{0.45\textwidth}
+        \textbf{Under the Guidance of:}\\
+        Dr. Faculty Name\\
+        Assistant Professor\\
+        Department of CSE
+        
+        \column{0.45\textwidth}
+        \textbf{Submitted by:}\\
+        Your Name\\
+        Roll No.-22dcs026
+    \end{columns}
+    \vspace{1cm}
+    
+    \textbf{DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}\\
+    NATIONAL INSTITUTE OF TECHNOLOGY HAMIRPUR\\
+    HIMACHAL PRADESH -177005
+}
+\date{Date: 01-04-2026}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Table of Content}
+    \begin{enumerate}
+        \item[1.] Problem Statement
+        \item[2.] Proposed Solution
+        \item[3.] Methodology
+        \begin{itemize}
+            \item[3.1] Simulation Platforms (Wokwi \& TagoIO)
+            \item[3.2] Sensors Used
+            \item[3.3] Microcontroller
+            \item[3.4] Circuit Connections
+            \item[3.5] TagoIO Results
+        \end{itemize}
+        \item[4.] Limitations
+        \item[5.] Future Scope
+        \item[6.] Conclusion
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Problem Statement}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Energy Wastage:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Traditional streetlights remain ON during daytime, wasting massive electricity globally.
+        \end{column}
+    \end{columns}
+    \vspace{0.4cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Lack of Automation:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Manual switching is prone to human errors and timing delays.
+        \end{column}
+    \end{columns}
+    \vspace{0.4cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{No Dimming Mechanism:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Providing 100\% brightness even when roads are completely empty wastes power.
+        \end{column}
+    \end{columns}
+    \vspace{0.4cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{No Remote Monitoring:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Faulty lights are only fixed after public complaints; no live dashboard.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Proposed Solution}
+    A fully simulated, IoT-based Smart Street Light System that solves traditional limitations:
+    \vspace{0.5cm}
+    \begin{table}[]
+        \begin{tabularx}{\textwidth}{@{}lX@{}}
+            \toprule
+            \textbf{Problem} & \textbf{Our Solution} \\
+            \midrule
+            \textbf{Energy Wastage} & Automated Day/Night switching using LDR sensor. \\ 
+            \addlinespace
+            \textbf{No Dimming} & PIR Motion Sensor dims lights to 20\% when empty, 100\% when active. \\ 
+            \addlinespace
+            \textbf{No Remote Access} & ESP32 WiFi pushes live telemetry data to the Cloud every few seconds. \\ 
+            \addlinespace
+            \textbf{Manual Operation} & Zero human intervention required. Fully autonomous. \\
+            \bottomrule
+        \end{tabularx}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Simulation Platforms Used}
+    \textbf{Wokwi — Hardware Simulation}
+    \begin{itemize}
+        \item Free, browser-based IoT simulator at wokwi.com
+        \item Simulates real ESP32 microcontroller with actual GPIO pins
+        \item Supports LDR, PIR sensors, LEDs, Serial Monitor
+        \item Arduino C++ code runs exactly as it would on physical hardware
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{TagoIO — Cloud Dashboard}
+    \begin{itemize}
+        \item Cloud IoT platform at tago.io
+        \item Provides drag-and-drop dashboard widgets:
+        \begin{itemize}
+            \item LDR Chart
+            \item Dimmer Widget
+            \item Device Geolocation Map
+            \item Analytics Dashboard
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Sensors Used}
+    \textbf{1. LDR — Light Dependent Resistor (Photoresistor)}
+    \begin{itemize}
+        \item An analog sensor that changes resistance based on light intensity.
+        \item Used to detect ambient environmental light (Day vs Night).
+        \item Triggers the system to turn ON or OFF lights automatically based on natural sunlight.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{2. PIR Sensor — Passive Infrared Sensor}
+    \begin{itemize}
+        \item A digital sensor that detects motion via infrared radiation changes.
+        \item Used to identify presence of vehicles or pedestrians.
+        \item Triggers the system to dynamically increase brightness to 100\% when motion is detected.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Microcontroller — ESP32}
+    The ESP32 was selected as the central processing unit due to its high performance-to-cost ratio and native IoT capabilities.
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Dual-Core Processor:} Allows simultaneous sensor detection and Wi-Fi transmission.
+        \item \textbf{Integrated Wi-Fi \& Bluetooth:} Enables direct MQTT/HTTP connection to TagoIO without external modules.
+        \item \textbf{Rich I/O Peripheral Set:}
+        \begin{itemize}
+            \item ADC Pins: Used for reading variations in LDR resistance (Analog Input).
+            \item Digital/PWM Pins: Used for controlling the Street Light LED brightness via PWM.
+            \item Interrupt Pins: Used for real-time PIR motion detection.
+        \end{itemize}
+        \item \textbf{Low Power Consumption:} Essential for remote outdoor installations.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Circuit Architecture \& Connectivity}
+    \textbf{LDR Sensor}
+    \begin{itemize}
+        \item VCC $\rightarrow$ 3.3V
+        \item GND $\rightarrow$ GND
+        \item AO $\rightarrow$ GPIO 34 (Analog Input)
+    \end{itemize}
+    \vspace{0.3cm}
+    \textbf{PIR Sensor}
+    \begin{itemize}
+        \item VCC $\rightarrow$ 3.3V
+        \item GND $\rightarrow$ GND
+        \item OUT $\rightarrow$ GPIO 13 (Digital Input)
+    \end{itemize}
+    \vspace{0.3cm}
+    \textbf{Street Light LED}
+    \begin{itemize}
+        \item Anode (+) $\rightarrow$ GPIO 25 (PWM Output)
+        \item Cathode (-) $\rightarrow$ GND (via 220-ohm Resistor)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{TagoIO Dashboard Results}
+    \begin{figure}
+        \centering
+        \includegraphics[height=0.7\textheight,keepaspectratio]{dashboard_ss.png}
+        \caption{Cloud Dashboard in TagoIO displaying live sensor states.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Limitations}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Simulation Constraints:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Wokwi provides "perfect" data; real-world sensors face signal noise and physical degradation over time.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Network Dependency:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            System requires a constant Wi-Fi connection; lacks local fallback memory to operate completely offline without data loss.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Security:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Data is sent over standard network protocols which might require enhanced MQTT encryption in enterprise solutions.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Future Scope}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Hardware Integration:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Transition from Wokwi simulation to physical deployment using an ESP32 board, physical LDRs, and High-Power LEDs or Relays.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Edge AI / CV:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Incorporate IP cameras to classify vehicles vs. pedestrians, overriding simple PIR triggers to predict trajectories.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Solar Panel Integration:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Equip each streetlight pole with independent solar panels and battery storage to make the system completely self-sustaining.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Integrated IoT Solution:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Successfully demonstrated a real-time smart lighting system bridging ESP32 hardware logic with TagoIO cloud visualization.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Energy Efficiency:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            Moved beyond traditional 'always-on' lighting by implementing PIR-based dimming, actively drastic reducing power wastage.
+        \end{column}
+    \end{columns}
+    \vspace{0.5cm}
+    \begin{columns}[T]
+        \begin{column}{0.3\textwidth}
+            \textbf{Cost-Efficiency:}
+        \end{column}
+        \begin{column}{0.65\textwidth}
+            The project proves that sophisticated urban automation can be achieved using low-cost, scalable, and off-the-shelf IoT components.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\end{document}

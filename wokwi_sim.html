@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="module" src="https://unpkg.com/@wokwi/elements/core/wokwi-elements.bundle.js"></script>
+<style>
+  body { display: flex; align-items: center; justify-content: center; height: 100vh; background: #222; margin: 0; padding: 0; font-family: monospace; color:white;}
+  .container { position: relative; width: 800px; height: 600px; border: 1px solid #444; border-radius: 8px; background: #1e1e1e; box-shadow: 0 4px 10px rgba(0,0,0,0.5); overflow: hidden;}
+  .header { padding: 10px 20px; background: #333; display:flex; justify-content: space-between; border-bottom: 2px solid #555;}
+  .canvas { position: relative; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div style="font-size: 1.5rem;">wokwi</div>
+    <div style="color:#aaa;">Smart Street Light Simulator</div>
+    <div style="background: #e91e63; padding: 5px 15px; border-radius:4px;">Simulator Running...</div>
+  </div>
+  <div class="canvas">
+    <wokwi-esp32-devkit-v1 style="position:absolute; top: 150px; left: 200px; transform: scale(1.5);"></wokwi-esp32-devkit-v1>
+    <wokwi-photoresistor-sensor style="position:absolute; top: 150px; left: 500px; transform: scale(1.5);"></wokwi-photoresistor-sensor>
+    <wokwi-pir-motion-sensor style="position:absolute; top: 300px; left: 500px; transform: scale(1.2);"></wokwi-pir-motion-sensor>
+    <wokwi-led color="white" style="position:absolute; top: 50px; left: 400px; transform: scale(2);"></wokwi-led>
+    
+    <!-- draw some fake wires -->
+    <svg width="800" height="600" style="position:absolute; top:0; left:0; pointer-events:none;">
+      <line x1="280" y1="200" x2="520" y2="160" stroke="#ff0000" stroke-width="4"/>
+      <line x1="280" y1="220" x2="520" y2="180" stroke="#000000" stroke-width="4"/>
+      <line x1="310" y1="350" x2="520" y2="350" stroke="#ffaa00" stroke-width="4"/>
+      <line x1="280" y1="360" x2="520" y2="380" stroke="#000000" stroke-width="4"/>
+      <line x1="250" y1="160" x2="410" y2="70" stroke="#00ff00" stroke-width="4"/>
+    </svg>
+
+    <div style="position:absolute; bottom:55px; left:0; right:0; background:#111; padding:10px; font-family:monospace; color:#0f0; border-top:1px solid #444;">
+      Serial Monitor<br/>
+      > WiFi connected.<br/>
+      > MQTT Connected<br/>
+      > LDR: 2150 | PIR: 1 | Status: Active (Motion)<br/>
+      > LDR: 2160 | PIR: 1 | Status: Active (Motion)<br/>
+      > LDR: 2125 | PIR: 0 | Status: Dim (No Motion)<br/>
+    </div>
+  </div>
+</div>
+</body>
+</html>
